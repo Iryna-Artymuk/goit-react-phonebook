@@ -18,6 +18,7 @@ export const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   width: 50vw;
+  height: 50vh;
   transform: translate(-50%, -50%);
   @media screen and (max-width: 600px) {
     & {
@@ -25,7 +26,7 @@ export const StyledModal = styled.div`
     }
   }
   /* height: auto; */
-  height: 60vh;
+
   object-fit: contain;
 
   border-radius: 5px;

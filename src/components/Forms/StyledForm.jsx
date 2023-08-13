@@ -1,7 +1,7 @@
 import { Field, Form } from 'formik';
 import { styled } from 'styled-components';
 export const StyledForm = styled(Form)`
-  width: 90vw;
+  width: 90%;
   /* height: 100%; */
   background: ${({ theme }) => theme.colors.background};
   border-radius: 8px;
@@ -16,6 +16,9 @@ export const StyledForm = styled(Form)`
   flex-direction: column;
   justify-content: center;
   gap: 15px;
+  button {
+    min-width: 50%;
+  }
 `;
 export const StyledField = styled(Field)`
   width: 100%;

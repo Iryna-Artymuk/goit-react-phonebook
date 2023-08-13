@@ -10,7 +10,7 @@ const handelPending = state => {
 const handelRejected = (state, action) => {
   // console.log('action.payload: ', action.payload);
   state.isLoading = false;
-  state.error = action.payload.m;
+  state.error = action.payload;
 };
 const handelFulfilled = (state, action) => {
   state.isLoading = false;

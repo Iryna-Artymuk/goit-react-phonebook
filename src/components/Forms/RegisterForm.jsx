@@ -15,6 +15,8 @@ export default function RegisterForm() {
 
   const ContactValidationSchema = Yup.object().shape({
     name: Yup.string().required('Name is  required'),
+    email: Yup.string().required('Email is  required'),
+    password: Yup.string().required('Password is  required'),
   });
 
   const handleSubmit = value => {

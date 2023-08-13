@@ -4,6 +4,7 @@ import {
   StyledHeader,
   StyledList,
   StyledNavLink,
+  StyledUser,
 } from './StyledHeader';
 import { ImExit } from 'react-icons/im';
 import { NavLink } from 'react-router-dom';
@@ -24,10 +25,15 @@ export default function Header({ children }) {
     <StyledHeader>
       <StyledAuthLinks>
         {IsAuthorizated && (
-          <div>
-            {/* <img src={gravatarImage} alt="avatar" /> */}
+          <StyledUser>
+            <img
+              src="https://api.dicebear.com/6.x/bottts/png"
+              alt="avatar"
+              width="40px "
+              height="40px"
+            />
             <span>{userData.name}</span>
-          </div>
+          </StyledUser>
         )}
         {IsAuthorizated ? (
           <button type="button" onClick={handelLogout}>

@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   height: 100%;
   text-align: center;
   margin: 0 auto 0;
-  background: ${({ theme }) => theme.colors.accentColor};
+  background: ${({ theme }) => theme.colors.background};
 
   p {
     width: 80%;
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 
-    color: ${({ theme }) => theme.colors.textColor};
+    color: ${({ theme }) => theme.colors.errorTextColor};
     font-size: 30px;
     animation: type 0.5s alternate infinite;
   }

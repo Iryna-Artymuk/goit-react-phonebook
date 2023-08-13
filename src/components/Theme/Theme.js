@@ -6,6 +6,7 @@ export const light = {
     accentColor: '#ffd100',
     textColor: '#132430',
     hoverTextColor: '#fff',
+    errorTextColor: '#C73E1D',
   },
 };
 
@@ -17,5 +18,6 @@ export const dark = {
     accentColor: '#ffd100',
     textColor: '#fff',
     hoverTextColor: '#132430',
+    errorTextColor: '#C73E1D',
   },
 };

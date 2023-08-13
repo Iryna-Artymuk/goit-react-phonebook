@@ -17,11 +17,11 @@ import { Filter } from './components/Filter/Filter';
 import ChangeContactForm from './components/Forms/ChangeContact ';
 import { ChangeThemeButton } from './components/Theme/TheamButton';
 import Header from './components/Header/Header';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { FavouriteContactsList } from 'components/ContactsList/FavouriteContactsList';
 import {
   getError,
-  // getIsAuthorizated,
+  getIsAuthorizated,
   getIsLoading,
   getToken,
 } from 'redux/selectors';
@@ -30,6 +30,7 @@ import ErrorPage from 'components/ErrorPage/ErrorPage';
 import Home from 'Pages/Home';
 import LoginPage from 'Pages/LoginPage';
 import RegisterPage from 'Pages/RegisterPage';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 
 // import { useMemo } from 'react';
 function App() {
@@ -45,7 +46,7 @@ function App() {
   const isLoading = useSelector(getIsLoading);
   const token = useSelector(getToken);
   const error = useSelector(getError);
-  // const IsAuthorizated = useSelector(getIsAuthorizated);
+  const IsAuthorizated = useSelector(getIsAuthorizated);
 
   const handleThemeChange = theme => setSelectedTheme(theme);
 
@@ -69,9 +70,15 @@ function App() {
   };
 
   useEffect(() => {
-    if (!token) return;
+    if (!token || IsAuthorizated) return;
 
     dispatch(refreshUser());
+    dispatch(fetchContacts());
+  }, [token, dispatch, IsAuthorizated]);
+
+  useEffect(() => {
+    if (!token) return;
+
     dispatch(fetchContacts());
   }, [token, dispatch]);
 
@@ -93,29 +100,32 @@ function App() {
             <>
               <Routes>
                 <Route path="/" element={<Home />} />
+
                 <Route
                   path="/Contacts"
                   element={
-                    <>
+                    <PrivateRoute>
                       <ContactsList
                         toggleFilter={toggleFilter}
                         activateAddForm={activateAddForm}
                         toggleModal={toggleModal}
                         activateChangeForm={activateChangeForm}
                       />
-                    </>
+                    </PrivateRoute>
                   }
                 />
 
                 <Route
                   path="/favouriteContacts"
                   element={
-                    <FavouriteContactsList
-                      toggleFilter={toggleFilter}
-                      activateAddForm={activateAddForm}
-                      toggleModal={toggleModal}
-                      activateChangeForm={activateChangeForm}
-                    />
+                    <PrivateRoute>
+                      <FavouriteContactsList
+                        toggleFilter={toggleFilter}
+                        activateAddForm={activateAddForm}
+                        toggleModal={toggleModal}
+                        activateChangeForm={activateChangeForm}
+                      />
+                    </PrivateRoute>
                   }
                 />
 

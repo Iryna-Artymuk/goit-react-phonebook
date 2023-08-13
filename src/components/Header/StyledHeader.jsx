@@ -67,7 +67,7 @@ export const StyledAuthLinks = styled.div`
   display: flex;
   align-items: center;
   align-self: flex-end;
-  gap: 30px;
+  /* gap: 30px; */
 
   a {
     position: relative;
@@ -109,4 +109,10 @@ export const StyledAuthLinks = styled.div`
       }
     }
   }
+`;
+export const StyledUser = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 `;

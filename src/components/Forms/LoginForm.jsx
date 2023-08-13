@@ -15,7 +15,12 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   // const modalActive = useSelector(getModalStatus);
 
-  const ContactValidationSchema = Yup.object().shape({});
+  const ContactValidationSchema = Yup.object().shape({
+    email: Yup.string().required('Email is  required'),
+
+    password: Yup.string().required('Password is  required'),
+    // .matches(phoneRegExp, 'Phone number is not valid'),
+  });
 
   const handleSubmit = value => {
     console.log('submit');

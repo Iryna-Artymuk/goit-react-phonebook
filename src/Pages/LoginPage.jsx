@@ -1,14 +1,22 @@
 import LoginForm from 'components/Forms/LoginForm';
-import Layout from 'components/Layout/Layout';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router';
+import { getAuthError, getIsAuthorizated } from 'redux/selectors';
 
 export default function LoginPage() {
-  return (
-    <Layout>
+  const IsAuthorizated = useSelector(getIsAuthorizated);
+  const error = useSelector(getAuthError);
+  console.log(' error : ', error);
+  if (IsAuthorizated) return <Navigate to="/contacts" />;
 
-        <LoginForm />
-   
-    </Layout>
+  return (
+    <>
+      {error && (
+        <p className="error">{error}, please reload page and try again</p>
+      )}
+      <LoginForm />
+    </>
   );
 }

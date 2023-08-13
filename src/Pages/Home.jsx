@@ -1,15 +1,43 @@
 import React from 'react';
+import { ImUnderline } from 'react-icons/im';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
   return (
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi ipsa
-      molestias nemo sit, dolorem ab harum impedit reprehenderit commodi. At
-      fugit dolorum harum natus nihil laborum officiis dolore beatae quas optio,
-      labore quisquam dicta dolores numquam eligendi porro. Recusandae
-      consectetur incidunt rerum animi, reprehenderit iure vero facilis numquam
-      quia voluptas?
-    </p>
+    <div>
+      <p
+        style={{
+          fontSize: 24,
+          letterSpacing: 3.3,
+          lineHeight: 1.5,
+          textAlign: 'center',
+        }}
+      >
+        Wellcome to my contacts APP to see your contacts list please
+        <NavLink
+          style={{
+            padding: 10,
+            fontWeight: 600,
+            textDecoration: 'underline',
+          }}
+          to="/login"
+        >
+          LOGIN
+        </NavLink>
+        or
+        <NavLink
+          style={{
+            padding: 10,
+            fontWeight: 600,
+            textDecoration: 'underline',
+          }}
+          to="/register"
+        >
+          REGISTER
+        </NavLink>{' '}
+        new account
+      </p>
+    </div>
   );
 }
 

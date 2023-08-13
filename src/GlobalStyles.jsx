@@ -82,4 +82,8 @@ img {
   background-color: hsl(0, 0%, 20%);
 }
 
+.error{
+ 
+color: ${({ theme }) => theme.colors.errorTextColor}
+}
 `;
