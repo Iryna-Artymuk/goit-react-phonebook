@@ -12,13 +12,28 @@ import {
   StyledLabel,
 } from './StyledContactItem';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setActiveContactId } from '../../redux/contactsSlice';
 import { IconButton } from '../Button/StyledButton';
-import { changeFavouriteStatus, deleteContact } from '../../redux/operations';
+import { deleteContact } from '../../redux/operations';
+import { useState } from 'react';
+import { favouriteContacts } from 'redux/selectors';
 // import { useEffect } from 'react';
 // import { contacts, getActiveContactId } from 'redux/selectors';
 export const Contact = ({ data, toggleModal, activateChangeForm }) => {
+  const favouriteContactsArr = useSelector(favouriteContacts);
+  const id = data.id;
+  const getisFavourireStatus = id => {
+    const favouritecontact = favouriteContactsArr.find(
+      contact => contact.id === data.id
+    );
+    if (favouritecontact) {
+      return true;
+    }
+    return false;
+  };
+
+  const [isFavourite] = useState(() => getisFavourireStatus(id));
   const dispatch = useDispatch();
 
   const handelDelete = () => {
@@ -27,31 +42,30 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
     dispatch(deleteContact(data.id));
   };
   const handlFavourite = () => {
-    const updateContactData = {
-      id: data.id,
-      isFavourite: !data.isFavourite,
-    };
+    addActiveIdtoStore(data.id);
     dispatch(setActiveContactId(data.id));
-    // console.log('data.id: ', data.id);
+    // const index = favouriteContactsArr.contacts.findIndex(
+    //   contact => contact.id === data.id
+    // );
+    // if (index < 0) {
+    //   dispatch(addToFavourite(data));
+    // }
 
-    dispatch(changeFavouriteStatus(updateContactData));
+    // dispatch(removeFromFavourite(data));
   };
   //
-  const addActiveIdtoStore = () => {
-    // console.log(data.id);
-    // console.log('data.id: ', data.id);
-    dispatch(setActiveContactId(data.id));
-  };
+  const addActiveIdtoStore = () => dispatch(setActiveContactId(data.id));
+
   // console.log(data);
   return (
     <li>
       <Card>
         <CardInfo>
-          <CardAvatar avatar={data.avatar}>{/* <img src={avatar} alt="" /> */}</CardAvatar>
+          <CardAvatar>{/* <img src={avatar} alt="" /> */}</CardAvatar>
           <CardTitle> {data.name}</CardTitle>
-          <CardSubtitle> {data.phone_number}</CardSubtitle>
+          <CardSubtitle> {data.number}</CardSubtitle>
           <Options>
-            <a href={`tel:${data.phone_number}`}>
+            <a href={`tel:${data.number}`}>
               <IconButton type="button" onClick={addActiveIdtoStore}>
                 <BsFillTelephoneFill size={24} />
               </IconButton>
@@ -73,7 +87,7 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
             <StyledLabel>
               <input
                 type="checkbox"
-                checked={data.isFavourite}
+                checked={isFavourite}
                 onChange={handlFavourite}
                 title="Add to favourite"
               />

@@ -1,19 +1,26 @@
 import { useSelector } from 'react-redux';
 import { Contact } from '../ContactItem/ContactItem';
-import { favouriteContacts } from '../../redux/selectors';
-import { getStoreFilter } from '../../redux/selectors';
-import { StyledList } from './StyledList';
 
-export const FavouriteContactsList = ({ toggleModal, activateChangeForm }) => {
-  const contactsList = useSelector(favouriteContacts);
+import { favouriteContacts, getStoreFilter } from '../../redux/selectors';
+import { StyledList } from './StyledList';
+import ContactsListOptions from 'components/ContactListOptions/ContactsListOptions';
+
+export const FavouriteContactsList = ({ toggleModal, activateChangeForm,toggleFilter,activateAddForm }) => {
+  const favouriteContactsList = useSelector(favouriteContacts);
   // console.log('contactsList : ', contactsList);
   const filter = useSelector(getStoreFilter);
   // console.log('filter: ', filter);
 
-  const filteredContacts = contactsList?.filter(contact =>
+  const filteredContacts = favouriteContactsList?.filter(contact =>
     contact.name.toLowerCase().includes(filter)
   );
   return (
+    <>
+    <ContactsListOptions 
+      toggleModal={toggleModal}
+      toggleFilter={toggleFilter}
+      activateAddForm={activateAddForm}
+    />
     <StyledList>
       {filteredContacts?.map(contactData => (
         <Contact
@@ -24,5 +31,6 @@ export const FavouriteContactsList = ({ toggleModal, activateChangeForm }) => {
         />
       ))}
     </StyledList>
+  </>
   );
 };

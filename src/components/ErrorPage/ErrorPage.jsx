@@ -13,12 +13,14 @@ export default function ErrorPage() {
       switch (error) {
         case ' Request failed with status code 404':
           // [error?.response.status] = 404;
-          setText('Sorry,something went wrong page :(not found please try again');
+          setText(
+            'Sorry,something went wrong  we lost a page :(   please refresh page and try again'
+          );
           break;
 
         default:
           setText(`Sorry,something went wrong :(
-            ${error}`);
+            ${error} refresh page and try again`);
       }
     };
     switchErrorText();

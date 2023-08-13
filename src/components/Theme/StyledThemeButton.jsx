@@ -7,7 +7,7 @@ export const StyledThemeLabel = styled.label`
   height: 20px;
   position: absolute;
   top: 5px;
-  right: 8px;
+  left: 8px;
   display: block;
   background: linear-gradient(180deg, #777, #686767);
   border-radius: 200px;

@@ -2,10 +2,7 @@ export const contacts = state => {
   //   console.log(state);
   return state.contacts.contacts;
 };
-export const favouriteContacts = state => {
-  const favouriteContacts = state.contacts.contacts.filter(contact => contact.isFavourite);
-  return favouriteContacts;
-};
+export const favouriteContacts = state => state.contacts.favouriteContacts;
 
 export const getStoreFilter = state => {
   // console.log('state: ', state);
@@ -25,3 +22,11 @@ export const getIsLoading = state => {
 };
 
 export const getError = state => state.contacts.error;
+
+// AUTH//
+
+export const getUserLoading = state => state.auth.isLoading;
+export const getAuthError = state => state.auth.error;
+export const getToken = state => state.auth.token;
+export const getUserData = state => state.auth.userData;
+export const getIsAuthorizated = state => state.auth.isAuthorizated;

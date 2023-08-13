@@ -1,12 +1,12 @@
-import { ErrorMessage, Field, Form } from 'formik';
+import { Field, Form } from 'formik';
 import { styled } from 'styled-components';
 export const StyledForm = styled(Form)`
-  width: 100%;
-  height: 100%;
+  width: 90vw;
+  /* height: 100%; */
   background: ${({ theme }) => theme.colors.background};
   border-radius: 8px;
   box-shadow: 0 0 40px -10px #000;
-  /* margin: calc(50vh - 220px) auto; */
+  margin: 0 auto 0;
   padding: 20px 30px;
   /* width: calc(100vw - 40px); */
   box-sizing: border-box;
@@ -37,10 +37,14 @@ export const StyledField = styled(Field)`
   }
 `;
 
-export const StyledErrorMessage = styled(ErrorMessage)`
-  font-size: 12px;
-  color: red;
-`;
+// export const StyledErrorMessage = styled(ErrorMessage)`
+//   font-size: 12px;
+//   color: red;
+// `;
 export const StyledLable = styled.label`
   color: ${({ theme }) => theme.colors.textColor};
+  & + div {
+    font-size: 12px;
+    color: red;
+  }
 `;

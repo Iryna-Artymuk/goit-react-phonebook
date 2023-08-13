@@ -6,7 +6,6 @@ import {
   addContact,
   deleteContact,
   changeContact,
-  changeFavouriteStatus,
 } from './operations';
 import { isAnyOf } from '@reduxjs/toolkit/dist';
 const handelPending = state => {
@@ -55,33 +54,28 @@ const contactsSlice = createSlice({
       state.contacts = action.payload; // тут буде дата з бекенду
       // state.contacts.isLoading= false
     });
-
+    // ----- addContact -----
     builder.addCase(addContact.fulfilled, (state, action) => {
       state.contacts.unshift(action.payload); //  action.payload тут буде дата з бекенду обєкт нового  контакту
       console.log('action.payload: ', action.payload);
     });
 
     builder.addCase(changeContact.fulfilled, (state, action) => {
-      const contactToChange = state.contacts.find(contact => contact.id === state.activeContactId);
+      const contactToChange = state.contacts.find(
+        contact => contact.id === state.activeContactId
+      );
       // console.log('contactToChange: ', contactToChange);
       // console.log('action.payload: ', action.payload);
       contactToChange.name = action.payload.name;
-      contactToChange.phone_number = action.payload.phone_number;
-      //  action.payload тут буде дата з бекенду обєкт нового  контакту
-    });
-
-    builder.addCase(changeFavouriteStatus.fulfilled, (state, action) => {
-      const contactToChange = state.contacts.find(contact => contact.id === state.activeContactId);
-
-      contactToChange.isFavourite = action.payload.isFavourite;
-      // console.log('contactToChange: ', contactToChange);
-      // console.log('action.payload: ', action.payload);
+      contactToChange.phone_number = action.payload.number;
       //  action.payload тут буде дата з бекенду обєкт нового  контакту
     });
 
     builder
       .addCase(deleteContact.fulfilled, (state, action) => {
-        state.contacts = state.contacts.filter(contact => contact.id !== state.activeContactId);
+        state.contacts = state.contacts.filter(
+          contact => contact.id !== state.activeContactId
+        );
         // state.contacts= state.contacts.filter(contact=>contact.id!== action.payload.id ) action.payload сюди прийде відповідь з бекенду обєкт видаленого контакту
 
         // console.log('action.payload: ', action.payload);
@@ -89,7 +83,6 @@ const contactsSlice = createSlice({
       .addMatcher(
         isAnyOf(
           fetchContacts.pending,
-          // changeFavouriteStatus.pending,
           changeContact.pending,
           addContact.pending,
           deleteContact.pending
@@ -99,7 +92,6 @@ const contactsSlice = createSlice({
       .addMatcher(
         isAnyOf(
           fetchContacts.rejected,
-          changeFavouriteStatus.rejected,
           changeContact.rejected,
           addContact.rejected,
           deleteContact.rejected
@@ -109,7 +101,6 @@ const contactsSlice = createSlice({
       .addMatcher(
         isAnyOf(
           fetchContacts.fulfilled,
-          changeFavouriteStatus.fulfilled,
           changeContact.fulfilled,
           addContact.fulfilled,
           deleteContact.fulfilled

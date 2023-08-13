@@ -2,13 +2,12 @@ import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export const StyledHeader = styled.header`
-  width: 100%;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 10;
-  height: 80px;
+  height: 90px;
   padding: 3px;
   display: flex;
   flex-direction: column;
@@ -17,20 +16,20 @@ export const StyledHeader = styled.header`
   gap: 10px;
   background: ${({ theme }) => theme.colors.background};
 
-  @media only screen and (min-width: 620px) {
+  /* @media only screen and (min-width: 620px) {
     flex-direction: row;
     align-items: flex-end;
-  }
+  } */
 `;
 
 export const StyledList = styled.ul`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 20px;
 
-  @media only screen and (min-width: 620px) {
+  /* @media only screen and (min-width: 620px) {
     width: 50%;
     display: flex;
     align-items: flex-end;
@@ -38,7 +37,7 @@ export const StyledList = styled.ul`
   }
   @media only screen and (max-width: 400px) {
     justify-content: flex-start;
-  }
+  } */
   li {
   }
 `;
@@ -62,5 +61,52 @@ export const StyledNavLink = styled(NavLink)`
   @media only screen and (min-width: 620px) {
     font-size: 24px;
     letter-spacing: 3.3px;
+  }
+`;
+export const StyledAuthLinks = styled.div`
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 30px;
+
+  a {
+    position: relative;
+    font-size: 18px;
+
+    letter-spacing: 3.3px;
+    color: ${({ theme }) => theme.colors.textColor};
+    padding: 10px 25px;
+    border-radius: 8px;
+    &:hover {
+      background: ${({ theme }) => theme.colors.accentColor};
+      &:hover {
+        color: ${({ theme }) => theme.colors.hoverTextColor};
+      }
+    }
+    &.active:before {
+      content: '';
+      width: 70%;
+      height: 3px;
+      position: absolute;
+      bottom: 5px;
+      left: 15px;
+      border-radius: 3px;
+      background: ${({ theme }) => theme.colors.accentColor};
+    }
+  }
+
+  button {
+    font-size: 18px;
+
+    letter-spacing: 3.3px;
+    color: ${({ theme }) => theme.colors.textColor};
+    padding: 10px 25px;
+    border-radius: 8px;
+    &:hover {
+      background: ${({ theme }) => theme.colors.accentColor};
+      &:hover {
+        color: ${({ theme }) => theme.colors.hoverTextColor};
+      }
+    }
   }
 `;

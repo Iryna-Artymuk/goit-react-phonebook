@@ -15,12 +15,17 @@ import { styled } from 'styled-components';
 // `;
 
 export const OptionsList = styled.ul`
-  width: 100%;
+  position: fixed;
+  top: 96px;
+  right: 0;
+  left: 0;
+  z-index: 10;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  @media only screen and (max-width: 400px) {
+  justify-content: space-evenly;
+  gap: 50px;
+
+  background: ${({ theme }) => theme.colors.background};
+  /* @media only screen and (max-width: 400px) {
     justify-content: flex-start;
   }
   @media only screen and (min-width: 620px) {
@@ -28,7 +33,7 @@ export const OptionsList = styled.ul`
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
-  }
+  } */
 `;
 // export const Styledspan = styled.span`
 

@@ -12,7 +12,12 @@ body{
   }};
 }
 main {
-  background: inherit;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 140px;
 }
 input,
 button,

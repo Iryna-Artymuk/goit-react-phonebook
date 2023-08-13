@@ -5,12 +5,12 @@ import { Toaster } from 'react-hot-toast';
 
 import { GlobalStyles } from './GlobalStyles';
 
-import { fetchContacts } from './redux/operations';
+import { fetchContacts, refreshUser } from './redux/operations';
 
 import { light } from './components/Theme/Theme';
 import Layout from './components/Layout/Layout';
 import { ContactsList } from './components/ContactsList/ContactsList';
-import ContactsListOptions from './components/ContactListOptions/ContactsListOptions';
+
 import AddContactForm from './components/Forms/AddContact';
 import Modal from './components/Modal/Modal';
 import { Filter } from './components/Filter/Filter';
@@ -19,9 +19,17 @@ import { ChangeThemeButton } from './components/Theme/TheamButton';
 import Header from './components/Header/Header';
 import { Route, Routes } from 'react-router-dom';
 import { FavouriteContactsList } from 'components/ContactsList/FavouriteContactsList';
-import { getError, getIsLoading } from 'redux/selectors';
+import {
+  getError,
+  // getIsAuthorizated,
+  getIsLoading,
+  getToken,
+} from 'redux/selectors';
 import Loader from 'components/Loader';
 import ErrorPage from 'components/ErrorPage/ErrorPage';
+import Home from 'Pages/Home';
+import LoginPage from 'Pages/LoginPage';
+import RegisterPage from 'Pages/RegisterPage';
 
 // import { useMemo } from 'react';
 function App() {
@@ -32,9 +40,12 @@ function App() {
   const [showFilter, setShowFilter] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showChangeForm, setShowChangeForm] = useState(false);
-  const isLoading = useSelector(getIsLoading);
 
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
+  const token = useSelector(getToken);
   const error = useSelector(getError);
+  // const IsAuthorizated = useSelector(getIsAuthorizated);
 
   const handleThemeChange = theme => setSelectedTheme(theme);
 
@@ -56,59 +67,63 @@ function App() {
   const deActivateChangeForm = () => {
     setShowChangeForm(false);
   };
-  const dispatch = useDispatch();
+
   useEffect(() => {
+    if (!token) return;
+
+    dispatch(refreshUser());
     dispatch(fetchContacts());
-  }, [dispatch]);
+  }, [token, dispatch]);
+
   return (
-    <ThemeProvider theme={selectedTheme || light}>
-      <GlobalStyles />
-      <Toaster />
-      <Header>
-        <ContactsListOptions
-          toggleFilter={toggleFilter}
-          toggleModal={toggleModal}
-          activateAddForm={activateAddForm}
-        />
-        <ChangeThemeButton handleThemeChange={handleThemeChange} />
-      </Header>
-      <Layout>
-        {error && <ErrorPage />}
-        {isLoading && <Loader />}
+    <Layout>
+      <ThemeProvider theme={selectedTheme || light}>
+        <GlobalStyles />
+        <Toaster />
+        <Header>
+          <ChangeThemeButton handleThemeChange={handleThemeChange} />
+        </Header>
+
         <main>
+          {isLoading && <Loader />}
           {showFilter && <Filter />}
+          {error ? (
+            <ErrorPage />
+          ) : (
+            <>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                  path="/Contacts"
+                  element={
+                    <>
+                      <ContactsList
+                        toggleFilter={toggleFilter}
+                        activateAddForm={activateAddForm}
+                        toggleModal={toggleModal}
+                        activateChangeForm={activateChangeForm}
+                      />
+                    </>
+                  }
+                />
 
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ContactsList
-                  toggleModal={toggleModal}
-                  activateChangeForm={activateChangeForm}
+                <Route
+                  path="/favouriteContacts"
+                  element={
+                    <FavouriteContactsList
+                      toggleFilter={toggleFilter}
+                      activateAddForm={activateAddForm}
+                      toggleModal={toggleModal}
+                      activateChangeForm={activateChangeForm}
+                    />
+                  }
                 />
-              }
-            />
-            <Route
-              index
-              element={
-                <ContactsList
-                  toggleModal={toggleModal}
-                  activateChangeForm={activateChangeForm}
-                />
-              }
-            />
-            <Route
-              path="/favouriteContacts"
-              element={
-                <FavouriteContactsList
-                  toggleModal={toggleModal}
-                  activateChangeForm={activateChangeForm}
-                />
-              }
-            />
 
-            {/* <Route path="*" element={<ErrorPage />} /> */}
-          </Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+              </Routes>
+            </>
+          )}
 
           {showModal && (
             <Modal
@@ -131,8 +146,8 @@ function App() {
             </Modal>
           )}
         </main>
-      </Layout>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Layout>
   );
 }
 
