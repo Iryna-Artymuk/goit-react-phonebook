@@ -1,3 +1,4 @@
+import ContactsListOptions from 'components/ContactListOptions/ContactsListOptions';
 import { ContactsList } from 'components/ContactsList/ContactsList';
 import ErrorPage from 'components/ErrorPage/ErrorPage';
 import { Filter } from 'components/Filter/Filter';
@@ -9,17 +10,18 @@ import { Navigate } from 'react-router';
 import { contacts, getError, getIsAuthorizated, getIsLoading } from 'redux/selectors';
 
 function ContactsPage({ activateAddForm, toggleModal, activateChangeForm }) {
+  const isAuthorizated = useSelector(getIsAuthorizated);
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
+
   const [showFilter, setShowFilter] = useState(false);
 
-  const isLoading = useSelector(getIsLoading);
-
-  const error = useSelector(getError);
-  const isAuthorizated = useSelector(getIsAuthorizated);
   const toggleFilter = () => {
     setShowFilter(!showFilter);
   };
   const contactsList = useSelector(contacts);
   if (!isAuthorizated  ) return <Navigate to="/login" />;
+  
   return (
     <>
       {error ? (
@@ -29,6 +31,12 @@ function ContactsPage({ activateAddForm, toggleModal, activateChangeForm }) {
         
           {isLoading && <Loader />}
           {showFilter && <Filter />}
+
+          <ContactsListOptions
+        toggleModal={toggleModal}
+        toggleFilter={toggleFilter}
+        activateAddForm={activateAddForm}
+      />
           {contactsList.length > 0 ? (
             <ContactsList
               toggleFilter={toggleFilter}

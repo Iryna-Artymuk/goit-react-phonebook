@@ -33,6 +33,10 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         console.log('action.payload.token: ', action.payload.token);
       })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.registerError = action.payload;
+      })
 
       // ----- LOGIN -----
 
@@ -41,6 +45,10 @@ const authSlice = createSlice({
         state.isAuthorizated = true;
         state.userData = action.payload.user;
         state.token = action.payload.token;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.loginError = action.payload;
       })
 
       // ----- REFRESH -----
@@ -71,8 +79,8 @@ const authSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          registerUser.rejected,
-          loginUser.rejected,
+          // registerUser.rejected,
+          // loginUser.rejected,
           refreshUser.rejected,
           logOut.rejected
         ),

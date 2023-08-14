@@ -23,7 +23,6 @@ import ContactsPage from 'Pages/ContactsPage';
 import FavouriteContactsPage from 'Pages/FavouriteContactsPage';
 import { Route, Routes } from 'react-router';
 
-
 // import { useMemo } from 'react';
 function App() {
   const [selectedTheme, setSelectedTheme] = useState(light);
@@ -63,11 +62,13 @@ function App() {
 
     dispatch(refreshUser());
   }, [token, dispatch, IsAuthorizated]);
-  useEffect(() => {
-    if (!token) return;
 
-    dispatch(fetchContacts());
-  }, [token, dispatch]);
+  useEffect(() => {
+    if (IsAuthorizated === true) {
+      dispatch(fetchContacts());
+    }
+    return;
+  }, [token, dispatch, IsAuthorizated]);
   return (
     <Layout>
       <ThemeProvider theme={selectedTheme || light}>

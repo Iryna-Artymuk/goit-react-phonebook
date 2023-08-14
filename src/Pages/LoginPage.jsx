@@ -3,18 +3,22 @@ import LoginForm from 'components/Forms/LoginForm';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
-import { getAuthError, getIsAuthorizated } from 'redux/selectors';
+import { getAuthLoginError, getIsAuthorizated } from 'redux/selectors';
 
 export default function LoginPage() {
   const IsAuthorizated = useSelector(getIsAuthorizated);
-  const error = useSelector(getAuthError);
-  console.log(' error : ', error);
+  const loginError = useSelector(getAuthLoginError);
+
   if (IsAuthorizated) return <Navigate to="/contacts" />;
 
   return (
     <>
-      {error && (
-        <p className="error">{error}, please reload page and try again</p>
+      {loginError && (
+        <p className="error ">
+          {loginError === 'Request failed with status code 400'
+            ? 'looks like your password or email is not correct  or you have not  register your account yet   please,  try again '
+            : loginError}
+        </p>
       )}
       <LoginForm />
     </>

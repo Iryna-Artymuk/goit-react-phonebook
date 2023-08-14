@@ -3,7 +3,7 @@ import { Contact } from '../ContactItem/ContactItem';
 
 import { favouriteContacts, getStoreFilter } from '../../redux/selectors';
 import { StyledList } from './StyledList';
-import ContactsListOptions from 'components/ContactListOptions/ContactsListOptions';
+
 
 export const FavouriteContactsList = ({ toggleModal, activateChangeForm,toggleFilter,activateAddForm }) => {
   const favouriteContactsList = useSelector(favouriteContacts);
@@ -16,11 +16,7 @@ export const FavouriteContactsList = ({ toggleModal, activateChangeForm,toggleFi
   );
   return (
     <>
-    <ContactsListOptions 
-      toggleModal={toggleModal}
-      toggleFilter={toggleFilter}
-      activateAddForm={activateAddForm}
-    />
+  
     <StyledList>
       {filteredContacts?.map(contactData => (
         <Contact

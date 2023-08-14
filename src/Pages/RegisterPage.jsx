@@ -2,22 +2,22 @@ import RegisterForm from 'components/Forms/RegisterForm';
 
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
-import { getAuthError, getIsAuthorizated } from 'redux/selectors';
+import { getAuthRegisterError, getIsAuthorizated } from 'redux/selectors';
 
 export default function RegisterPage() {
   const IsAuthorizated = useSelector(getIsAuthorizated);
 
-  const error = useSelector(getAuthError);
+  const registerError = useSelector(getAuthRegisterError);
 
   if (IsAuthorizated) return <Navigate to="/contacts" />;
   return (
     <>
-      {error && (
-        <p className="error">
-          {/* {error} */}
-          {error === 'Request failed with status code 400'
+      { registerError  && (
+        <p className="error ">
+          {/* { registerError } */}
+          { registerError  === 'Request failed with status code 400'
             ? ' probably this user already exist try another email address'
-            : error}
+            :  registerError }
         </p>
       )}
       <RegisterForm />

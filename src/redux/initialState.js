@@ -12,7 +12,8 @@ export const filterInitialState = {
 
 export const UserInitialState = {
   isLoading: false,
-  error: null,
+  loginError: null,
+  registerError: null,
   userData: null,
   token: null,
   isAuthorizated: false,

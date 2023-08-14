@@ -3,7 +3,6 @@ import { Contact } from '../ContactItem/ContactItem';
 import { contacts } from '../../redux/selectors';
 import { getStoreFilter } from '../../redux/selectors';
 import { StyledList } from './StyledList';
-import ContactsListOptions from 'components/ContactListOptions/ContactsListOptions';
 
 export const ContactsList = ({
   toggleModal,
@@ -21,11 +20,6 @@ export const ContactsList = ({
   );
   return (
     <>
-      <ContactsListOptions
-        toggleModal={toggleModal}
-        toggleFilter={toggleFilter}
-        activateAddForm={activateAddForm}
-      />
       <StyledList>
         {filteredContacts?.map(contactData => (
           <Contact
