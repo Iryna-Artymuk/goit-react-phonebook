@@ -7,7 +7,12 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 
-import { contacts, getError, getIsAuthorizated, getIsLoading } from 'redux/selectors';
+import {
+  contacts,
+  getError,
+  getIsAuthorizated,
+  getIsLoading,
+} from 'redux/selectors';
 
 function ContactsPage({ activateAddForm, toggleModal, activateChangeForm }) {
   const isAuthorizated = useSelector(getIsAuthorizated);
@@ -20,34 +25,28 @@ function ContactsPage({ activateAddForm, toggleModal, activateChangeForm }) {
     setShowFilter(!showFilter);
   };
   const contactsList = useSelector(contacts);
-  if (!isAuthorizated  ) return <Navigate to="/login" />;
-  
+  if (!isAuthorizated) return <Navigate to="/login" />;
+
   return (
     <>
-      {error ? (
-        <ErrorPage />
-      ) : (
-        <>
-        
-          {isLoading && <Loader />}
-          {showFilter && <Filter />}
+      {isLoading && <Loader />}
+      {showFilter && <Filter />}
 
-          <ContactsListOptions
+      <ContactsListOptions
         toggleModal={toggleModal}
         toggleFilter={toggleFilter}
         activateAddForm={activateAddForm}
       />
-          {contactsList.length > 0 ? (
-            <ContactsList
-              toggleFilter={toggleFilter}
-              activateAddForm={activateAddForm}
-              toggleModal={toggleModal}
-              activateChangeForm={activateChangeForm}
-            />
-          ) : (
-            <p className="error"> You don't have contacts yet </p>
-          )}
-        </>
+      {error && <ErrorPage />}
+      {contactsList.length > 0 ? (
+        <ContactsList
+          toggleFilter={toggleFilter}
+          activateAddForm={activateAddForm}
+          toggleModal={toggleModal}
+          activateChangeForm={activateChangeForm}
+        />
+      ) : (
+        <p className="error"> You don't have contacts yet </p>
       )}
     </>
   );
