@@ -23,12 +23,12 @@ import { deleteContact } from '../../redux/operations';
 import { useState } from 'react';
 import { favouriteContacts, getActiveContactId } from 'redux/selectors';
 import { useEffect } from 'react';
-// import { useEffect } from 'react';
-// import { contacts, getActiveContactId } from 'redux/selectors';
+import { SetRandomAvatar } from 'Servises/SetUserAvatar';
+
 export const Contact = ({ data, toggleModal, activateChangeForm }) => {
   const dispatch = useDispatch();
   const [isFavourite, setIsFavourite] = useState(false);
-  console.log('isFavourite: ', isFavourite);
+  // console.log('isFavourite: ', isFavourite);
   const userFavouriteContacts = useSelector(favouriteContacts);
   // console.log(' userFavouriteContacts: ', userFavouriteContacts);
   const activeContactId = useSelector(getActiveContactId);
@@ -62,12 +62,11 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
   };
   const addActiveIdtoStore = () => dispatch(setActiveContactId(data.id));
 
-  // console.log(data);
   return (
     <li>
       <Card>
         <CardInfo>
-          <CardAvatar>{/* <img src={avatar} alt="" /> */}</CardAvatar>
+          <CardAvatar avatar={SetRandomAvatar()}> </CardAvatar>
           <CardTitle> {data.name}</CardTitle>
           <CardSubtitle> {data.number}</CardSubtitle>
           <Options>

@@ -19,7 +19,7 @@ const handelRejected = (state, action) => {
 const handelFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
-state.favouriteContacts=[]
+  state.favouriteContacts = [];
 };
 const contactsSlice = createSlice({
   // Ім'я слайсу
@@ -41,9 +41,6 @@ const contactsSlice = createSlice({
       });
     },
     sortZtoA(state, action) {
-      // const sortState = [...state].sort(function (task1, task2) {
-      //   return task1.text.localeCompare(task2.text);
-      // });
       state.contacts.sort(function (contact1, contact2) {
         return contact2.name.localeCompare(contact1.name);
       });

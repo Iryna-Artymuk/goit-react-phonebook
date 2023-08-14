@@ -23,6 +23,7 @@ import ContactsPage from 'Pages/ContactsPage';
 import FavouriteContactsPage from 'Pages/FavouriteContactsPage';
 import { Route, Routes } from 'react-router';
 
+
 // import { useMemo } from 'react';
 function App() {
   const [selectedTheme, setSelectedTheme] = useState(light);
@@ -66,7 +67,7 @@ function App() {
     if (!token) return;
 
     dispatch(fetchContacts());
-  }, [token, dispatch, IsAuthorizated]);
+  }, [token, dispatch]);
   return (
     <Layout>
       <ThemeProvider theme={selectedTheme || light}>
@@ -97,7 +98,7 @@ function App() {
               element={
                 <PrivateRoute>
                   <FavouriteContactsPage
-                    redirectTo="/login"
+                    redirectTo="/"
                     activateAddForm={activateAddForm}
                     toggleModal={toggleModal}
                     activateChangeForm={activateChangeForm}

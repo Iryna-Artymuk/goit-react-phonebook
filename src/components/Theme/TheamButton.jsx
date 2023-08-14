@@ -1,10 +1,10 @@
 // import css from '../Theme/Theam.module.css';
 
-import { SunSVG } from '../Theme/SVG/SunSVG';
-import { MoonSVG } from '../Theme/SVG/MoonSVG';
+import { SunSVG } from '../../SVG/SunSVG';
+import { MoonSVG } from '../../SVG/MoonSVG';
 
 import { useEffect, useState } from 'react';
-import { light, dark } from '../Theme/Theme';
+import { light, dark } from './Theme';
 import { StyledThemeInput, StyledThemeLabel } from './StyledThemeButton';
 // стаття про зміну теми в style-components
 // https://blog.logrocket.com/build-react-theme-switcher-app-styled-components/

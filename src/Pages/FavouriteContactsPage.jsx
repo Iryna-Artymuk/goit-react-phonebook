@@ -14,15 +14,20 @@ export default function FavouriteContactsPage({
   const error = useSelector(getError);
   return (
     <>
-      {error && <ErrorPage />}
-      {userFavouriteContactsList.length > 0 ? (
-        <FavouriteContactsList
-          activateAddForm={activateAddForm}
-          toggleModal={toggleModal}
-          activateChangeForm={activateChangeForm}
-        ></FavouriteContactsList>
+      {error ? (
+        <ErrorPage />
       ) : (
-        <p className="error"> You don't have favourite contacts yet </p>
+        <>
+          {userFavouriteContactsList.length > 0 ? (
+            <FavouriteContactsList
+              activateAddForm={activateAddForm}
+              toggleModal={toggleModal}
+              activateChangeForm={activateChangeForm}
+            ></FavouriteContactsList>
+          ) : (
+            <p className="error"> You don't have favourite contacts yet </p>
+          )}
+        </>
       )}
     </>
   );

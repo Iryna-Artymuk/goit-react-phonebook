@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: relative;
-  /* width: 100vw; */
-  height: 100%;
+  /* position: relative; */
+  /* width: 100vw;
+  height: 100%; */
   text-align: center;
   margin: 0 auto 0;
   background: ${({ theme }) => theme.colors.background};

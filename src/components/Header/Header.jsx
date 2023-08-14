@@ -54,7 +54,7 @@ export default function Header({ children }) {
         {IsAuthorizated && (
           <>
             <li>
-              <StyledNavLink to="/Contacts">My Contacts</StyledNavLink>
+              <StyledNavLink to="/contacts">My Contacts</StyledNavLink>
             </li>
 
             <li>

@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import avatar from '../../img/avatar.jpg';
+import defaultAvatar from '../../Images/defaultAvatar.jpg';
 
 export const Card = styled.div`
   --size: 250px;
@@ -42,7 +42,7 @@ export const CardSubtitle = styled.div`
 /*Image*/
 export const CardAvatar = styled.div.attrs(props => ({
   style: {
-    backgroundImage: `url(${props.avatar || avatar})`,
+    backgroundImage: `url(${props.avatar || defaultAvatar})`,
     backgroundSize: 'cover',
   },
 }))`
