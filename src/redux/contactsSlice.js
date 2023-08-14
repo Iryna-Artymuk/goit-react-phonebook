@@ -19,6 +19,7 @@ const handelRejected = (state, action) => {
 const handelFulfilled = (state, action) => {
   state.isLoading = false;
   state.error = null;
+state.favouriteContacts=[]
 };
 const contactsSlice = createSlice({
   // Ім'я слайсу
@@ -30,7 +31,6 @@ const contactsSlice = createSlice({
   reducers: {
     setActiveContactId(state, action) {
       state.activeContactId = action.payload;
-      console.log(' action.payload: ', action.payload);
     },
 
     sortAtoZ(state, action) {
@@ -48,7 +48,17 @@ const contactsSlice = createSlice({
         return contact2.name.localeCompare(contact1.name);
       });
     },
+    addToFavourite(state, action) {
+      state.favouriteContacts.push(action.payload);
+    },
+    removeFromFavourite(state, action) {
+      const index = state.favouriteContacts.findIndex(contact => {
+        return contact.id === state.activeContactId;
+      });
+      state.favouriteContacts.splice(index, 1);
+    },
   },
+
   extraReducers: builder => {
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
       state.contacts = action.payload; // тут буде дата з бекенду
@@ -76,9 +86,6 @@ const contactsSlice = createSlice({
         state.contacts = state.contacts.filter(
           contact => contact.id !== state.activeContactId
         );
-        // state.contacts= state.contacts.filter(contact=>contact.id!== action.payload.id ) action.payload сюди прийде відповідь з бекенду обєкт видаленого контакту
-
-        // console.log('action.payload: ', action.payload);
       })
       .addMatcher(
         isAnyOf(
@@ -111,6 +118,12 @@ const contactsSlice = createSlice({
 });
 
 // Генератори екшенів
-export const { sortAtoZ, sortZtoA, setActiveContactId } = contactsSlice.actions;
+export const {
+  sortAtoZ,
+  sortZtoA,
+  setActiveContactId,
+  addToFavourite,
+  removeFromFavourite,
+} = contactsSlice.actions;
 // Редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;

@@ -13,47 +13,53 @@ import {
 } from './StyledContactItem';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveContactId } from '../../redux/contactsSlice';
+import {
+  addToFavourite,
+  removeFromFavourite,
+  setActiveContactId,
+} from '../../redux/contactsSlice';
 import { IconButton } from '../Button/StyledButton';
 import { deleteContact } from '../../redux/operations';
 import { useState } from 'react';
-import { favouriteContacts } from 'redux/selectors';
+import { favouriteContacts, getActiveContactId } from 'redux/selectors';
+import { useEffect } from 'react';
 // import { useEffect } from 'react';
 // import { contacts, getActiveContactId } from 'redux/selectors';
 export const Contact = ({ data, toggleModal, activateChangeForm }) => {
-  const favouriteContactsArr = useSelector(favouriteContacts);
-  const id = data.id;
-  const getisFavourireStatus = id => {
-    const favouritecontact = favouriteContactsArr.find(
+  const dispatch = useDispatch();
+  const [isFavourite, setIsFavourite] = useState(false);
+  console.log('isFavourite: ', isFavourite);
+  const userFavouriteContacts = useSelector(favouriteContacts);
+  // console.log(' userFavouriteContacts: ', userFavouriteContacts);
+  const activeContactId = useSelector(getActiveContactId);
+
+  useEffect(() => {
+    const getFavourireStatus = () => {
+      const isContsctFavourite = userFavouriteContacts.find(
+        contact => contact.id === data.id
+      );
+
+      if (isContsctFavourite) {
+        return setIsFavourite(true);
+      }
+      return setIsFavourite(false);
+    };
+    getFavourireStatus(data.id);
+  }, [userFavouriteContacts, data.id]);
+
+  const handlFavourite = () => {
+    const index = userFavouriteContacts.findIndex(
       contact => contact.id === data.id
     );
-    if (favouritecontact) {
-      return true;
+    if (index < 0) {
+      dispatch(addToFavourite(data));
+    } else if (index > 0 || index === 0) {
+      dispatch(removeFromFavourite(data));
     }
-    return false;
   };
-
-  const [isFavourite] = useState(() => getisFavourireStatus(id));
-  const dispatch = useDispatch();
-
   const handelDelete = () => {
-    dispatch(setActiveContactId(data.id));
-
-    dispatch(deleteContact(data.id));
+    dispatch(deleteContact(activeContactId));
   };
-  const handlFavourite = () => {
-    addActiveIdtoStore(data.id);
-    dispatch(setActiveContactId(data.id));
-    // const index = favouriteContactsArr.contacts.findIndex(
-    //   contact => contact.id === data.id
-    // );
-    // if (index < 0) {
-    //   dispatch(addToFavourite(data));
-    // }
-
-    // dispatch(removeFromFavourite(data));
-  };
-  //
   const addActiveIdtoStore = () => dispatch(setActiveContactId(data.id));
 
   // console.log(data);
@@ -74,60 +80,40 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
             <IconButton
               type="button"
               onClick={() => {
-                activateChangeForm();
                 addActiveIdtoStore();
+                activateChangeForm();
                 toggleModal();
               }}
             >
               <BsFillPencilFill size={24} />
             </IconButton>
-            <IconButton type="button" onClick={handelDelete}>
+
+            <IconButton
+              type="button"
+              onClick={() => {
+                addActiveIdtoStore();
+                handelDelete();
+              }}
+            >
               <MdClose size={24} />
             </IconButton>
+
             <StyledLabel>
               <input
                 type="checkbox"
                 checked={isFavourite}
-                onChange={handlFavourite}
+                onChange={() => {
+                  // getFavourireStatus(data.id);
+                  addActiveIdtoStore();
+                  handlFavourite(data.id);
+                }}
                 title="Add to favourite"
               />
-
               <AiTwotoneStar size={24} />
             </StyledLabel>
-
-            {/* 
-         
-            <StyledInput
-              type="checkbox"
-              id="fafourite-toggle"
-              value={data.id}
-              onChange={data => {
-                handlFavourite(data);
-              }}
-              checked={data.isFavourite}
-              // onChange={event => {
-              //   console.log('event: ', event);
-
-              //   handlFavourite();
-              // }}
-            />
-            <StyledLabel htmlFor="fafourite-toggle">
-              <AiTwotoneStar size={24} />
-            </StyledLabel>
-            {/* </IconButton> */}
           </Options>
         </CardInfo>
       </Card>
     </li>
   );
 };
-//  {/* <ContactWrapper>
-//       <ContactInfo>
-//         <p>{data.name}</p>
-//         <p>{data.phone_number}</p>
-//       </ContactInfo>
-
-//       <IconButton type="button" onClick={handelClick}>
-//         <MdClose size={24} />
-//       </IconButton>
-//     </ContactWrapper> */}

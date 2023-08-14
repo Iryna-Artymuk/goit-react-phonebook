@@ -16,7 +16,7 @@ export default function RegisterPage() {
         <p className="error">
           {/* {error} */}
           {error === 'Request failed with status code 400'
-            ? 'this user already exist try another email address'
+            ? ' probably this user already exist try another email address'
             : error}
         </p>
       )}

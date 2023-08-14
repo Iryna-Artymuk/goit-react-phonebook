@@ -17,6 +17,8 @@ export const fetchContacts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios_instance.get('/contacts');
+      console.log(' response.data: ', response.data);
+
       return response.data;
     } catch (error) {
       toast.error('This is an error!');
@@ -59,25 +61,7 @@ export const changeContact = createAsyncThunk(
     }
   }
 );
-// export const changeFavouriteStatus = createAsyncThunk(
-//   'contacts/changeFavouriteStatus',
-//   async (newContactData, thunkAPI) => {
-//     // const newStatus=null
-//     try {
-//       const response = await axios_instance.put(
-//         `/contacts/${newContactData.id}`,
-//         newContactData
-//       );
-//       newContactData.isFavourite
-//         ? toast.success('Successfully added to favourite')
-//         : toast.success('Successfully removed from favourite');
-//       return response.data;
-//     } catch (error) {
-//       toast.error('This is an error!');
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
+
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, thunkAPI) => {

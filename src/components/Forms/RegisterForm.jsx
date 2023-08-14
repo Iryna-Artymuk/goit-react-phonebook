@@ -15,8 +15,11 @@ export default function RegisterForm() {
 
   const ContactValidationSchema = Yup.object().shape({
     name: Yup.string().required('Name is  required'),
-    email: Yup.string().required('Email is  required'),
-    password: Yup.string().required('Password is  required'),
+    email:Yup.string().email().required('Email is  required'),
+    password: Yup.string()
+    .required('No password provided.')
+    .min(8, 'Password is too short - should be 8 chars minimum.')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
   });
 
   const handleSubmit = value => {
