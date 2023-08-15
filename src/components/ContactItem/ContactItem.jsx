@@ -21,7 +21,7 @@ import {
 import { IconButton } from '../Button/StyledButton';
 import { deleteContact } from '../../redux/operations';
 import { useState } from 'react';
-import { favouriteContacts, getActiveContactId } from 'redux/selectors';
+import { favouriteContacts, } from 'redux/selectors';
 import { useEffect } from 'react';
 import { SetRandomAvatar } from 'Servises/SetUserAvatar';
 
@@ -31,7 +31,6 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
   // console.log('isFavourite: ', isFavourite);
   const userFavouriteContacts = useSelector(favouriteContacts);
   // console.log(' userFavouriteContacts: ', userFavouriteContacts);
-  const activeContactId = useSelector(getActiveContactId);
 
   useEffect(() => {
     const getFavourireStatus = () => {
