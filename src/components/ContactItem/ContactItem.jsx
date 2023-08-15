@@ -58,7 +58,7 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
     }
   };
   const handelDelete = () => {
-    dispatch(deleteContact(activeContactId));
+    dispatch(deleteContact(data.id));
   };
   const addActiveIdtoStore = () => dispatch(setActiveContactId(data.id));
 
@@ -87,15 +87,7 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
               <BsFillPencilFill size={24} />
             </IconButton>
 
-            <IconButton
-              type="button"
-              onClick={() => {
-                addActiveIdtoStore();
-                console.log('data.id: ', data.id);
-
-                handelDelete(data.id);
-              }}
-            >
+            <IconButton type="button" onClick={handelDelete}>
               <MdClose size={24} />
             </IconButton>
 
