@@ -3,24 +3,28 @@ import { ContactsList } from 'components/ContactsList/ContactsList';
 import ErrorPage from 'components/ErrorPage/ErrorPage';
 import { Filter } from 'components/Filter/Filter';
 import Loader from 'components/Loader/Loader';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
+import { fetchContacts } from 'redux/operations';
 
 import {
   contacts,
   getError,
   getIsAuthorizated,
   getIsLoading,
+  getToken,
 } from 'redux/selectors';
 
 function ContactsPage({ activateAddForm, toggleModal, activateChangeForm }) {
+  const dispatch = useDispatch();
   const isAuthorizated = useSelector(getIsAuthorizated);
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
-
+  // const token = useSelector(getToken);
   const [showFilter, setShowFilter] = useState(false);
 
+ 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
   };

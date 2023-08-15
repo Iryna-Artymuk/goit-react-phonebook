@@ -91,7 +91,9 @@ export const Contact = ({ data, toggleModal, activateChangeForm }) => {
               type="button"
               onClick={() => {
                 addActiveIdtoStore();
-                handelDelete();
+                console.log('data.id: ', data.id);
+
+                handelDelete(data.id);
               }}
             >
               <MdClose size={24} />

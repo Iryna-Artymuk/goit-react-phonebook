@@ -80,8 +80,10 @@ const contactsSlice = createSlice({
 
     builder
       .addCase(deleteContact.fulfilled, (state, action) => {
+        console.log('action.payload: ', action.payload);
+
         state.contacts = state.contacts.filter(
-          contact => contact.id !== state.activeContactId
+          contact => contact.id !== action.payload.id
         );
       })
       .addMatcher(

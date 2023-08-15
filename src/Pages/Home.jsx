@@ -14,8 +14,8 @@ function Home() {
         <div>
           <p
             style={{
-              fontSize: 32,
-              letterSpacing: 3.3,
+              fontSize: 24,
+              letterSpacing: 0.5,
               lineHeight: 1.5,
               textAlign: 'center',
               fontWeight: 700,
@@ -28,8 +28,8 @@ function Home() {
         <div>
           <p
             style={{
-              fontSize: 24,
-              letterSpacing: 3.3,
+              fontSize: 18,
+              letterSpacing: 0.5,
               lineHeight: 1.5,
               textAlign: 'center',
             }}

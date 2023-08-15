@@ -36,7 +36,7 @@ function App() {
 
   const token = useSelector(getToken);
 
-  const IsAuthorizated = useSelector(getIsAuthorizated);
+  const isAuthorizated = useSelector(getIsAuthorizated);
 
   const handleThemeChange = theme => setSelectedTheme(theme);
 
@@ -58,17 +58,16 @@ function App() {
   };
 
   useEffect(() => {
-    if (!token || IsAuthorizated) return;
+    if (!token || isAuthorizated) return;
 
     dispatch(refreshUser());
-  }, [token, dispatch, IsAuthorizated]);
+  }, [token, dispatch, isAuthorizated]);
 
   useEffect(() => {
-    if (IsAuthorizated === true) {
-      dispatch(fetchContacts());
-    }
-    return;
-  }, [token, dispatch, IsAuthorizated]);
+    if (!isAuthorizated) return;
+    dispatch(fetchContacts());
+  }, [dispatch, isAuthorizated]);
+
   return (
     <Layout>
       <ThemeProvider theme={selectedTheme || light}>

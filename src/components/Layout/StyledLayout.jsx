@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const StyledContainer = styled.div`
   max-width: 1220px;
-  height: calc(100vh - 178px);
+
   margin: 0 auto 0;
   /* width: 1200px; */
   /* не задаємо фіксовану ширину щоб контейнер був гумовим  */

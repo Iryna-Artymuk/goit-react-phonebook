@@ -25,9 +25,5 @@ export default function ErrorPage() {
     };
     switchErrorText();
   }, [error]);
-  return (
-    <Wrapper>
-      <p>{text}</p>
-    </Wrapper>
-  );
+  return <Wrapper>{text}</Wrapper>;
 }
